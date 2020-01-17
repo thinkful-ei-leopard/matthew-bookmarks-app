@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="../index.css" rel="stylesheet">
     <title>Matthew's Bookmarks App</title>
 </head>
@@ -12,9 +13,6 @@
         <div class="head-container">
             <h1>My Bookmarks</h1>
         </div>
-    </header>
-
-    <main role="main" aria-live="polite">
         <section class="user-controls">
             <button class="add-button button">Add</button>
             <select class="filter" name="filter">
@@ -25,56 +23,98 @@
                 <option type="submit" value="1">1 Star+</option>
             </select>
         </section>
+    </header>
 
+    <main role="main" aria-live="polite">
         <section class="bookmark-container">
-            <div class="bookmark-head">
-                <h3 class="title">Title5</h3>
-                <p class="rating">5 Stars</p>
-            </div>
-            <div class="bookmark-body hidden">
-                <button class="site-button button">Visit Site</button>
-                <p class="description">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
-                <button class="delete-button button">Delete</button>
-            </div>
-
-            <div class="bookmark-head">
-                <h3 class="title">Title4</h3>
-                <p class="rating">5 Stars</p>
-            </div>
-            <div class="bookmark-body hidden">
-                <button class="site-button button">Visit Site</button>
-                <p class="description">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
-                <button class="delete-button button">Delete</button>
+            <div class="bookmark">
+                <div class="bookmark-head">
+                    <h3 class="title">Title5</h3>
+                    <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+                <div class="bookmark-body hidden">
+                    <button class="site-button button">Visit Site</button>
+                    <p class="description">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+                    <button class="delete-button button">Delete</button>
+                </div>
             </div>
 
-            <div class="bookmark-head">
-                <h3 class="title">Title3</h3>
-                <p class="rating">5 Stars</p>
-            </div>
-            <div class="bookmark-body hidden">
-                <button class="site-button button">Visit Site</button>
-                <p class="description">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
-                <button class="delete-button button">Delete</button>
-            </div>
-
-            <div class="bookmark-head">
-                <h3 class="title">Title2</h3>
-                <p class="rating">5 Stars</p>
-            </div>
-            <div class="bookmark-body hidden">
-                <button class="site-button button">Visit Site</button>
-                <p class="description">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
-                <button class="delete-button button">Delete</button>
+            <div class="bookmark">
+                <div class="bookmark-head">
+                    <h3 class="title">Title4</h3>
+                    <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+                <div class="bookmark-body hidden">
+                    <button class="site-button button">Visit Site</button>
+                    <p class="description">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+                    <button class="delete-button button">Delete</button>
+                </div>
             </div>
 
-            <div class="bookmark-head">
-                <h3 class="title">Title1</h3>
-                <p class="rating">5 Stars</p>
+            <div class="bookmark">
+                <div class="bookmark-head">
+                    <h3 class="title">Title3</h3>
+                    <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+                <div class="bookmark-body hidden">
+                    <button class="site-button button">Visit Site</button>
+                    <p class="description">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+                    <button class="delete-button button">Delete</button>
+                </div>
             </div>
-            <div class="bookmark-body hidden">
-                <button class="site-button button">Visit Site</button>
-                <p class="description">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
-                <button class="delete-button button">Delete</button>
+
+            <div class="bookmark">
+                <div class="bookmark-head">
+                    <h3 class="title">Title2</h3>
+                    <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+                <div class="bookmark-body hidden">
+                    <button class="site-button button">Visit Site</button>
+                    <p class="description">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+                    <button class="delete-button button">Delete</button>
+                </div>
+            </div>
+
+            <div class="bookmark">
+                <div class="bookmark-head">
+                    <h3 class="title">Title1</h3>
+                    <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+                <div class="bookmark-body hidden">
+                    <button class="site-button button">Visit Site</button>
+                    <p class="description">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+                    <button class="delete-button button">Delete</button>
+                </div>
             </div>
         </section>
     </main>
