@@ -2,9 +2,6 @@
 
 * {
     box-sizing: border-box;
-}
-
-body {
     font-family: 'Carter One', cursive;
 }
 
@@ -24,30 +21,38 @@ a:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin-bottom: 20px;
+    margin: 20px auto;
 }
 
 .button {
-    width: 20%;
-    padding: 10px;
+    padding: 5px;
     border: 1px solid black;
     border-radius: 5px;
-    text-align: center;
+    margin: auto 20px;
+}
+
+.add-button {
+    width: 10%;
 }
 
 .filter {
-    width: 20%;
     padding: 10px;
     border: 1px solid black;
-}
-
-.delete-button {
-    color: white;
-    background-color: red;
+    width: 10%;
 }
 
 .filter:hover {
     cursor: pointer;
+}
+
+.site-button {
+    width: 10%;
+}
+
+.delete-button {
+    width: 10%;
+    color: white;
+    background-color: red;
 }
 
 .bookmark-container {
@@ -67,6 +72,10 @@ a:hover {
     border-radius: 10px;
 }
 
+.bookmark-head:hover {
+    cursor: pointer;
+}
+
 .bookmark-body {
     display: flex;
     flex-direction: column;
@@ -76,8 +85,91 @@ a:hover {
     padding: 10px;
 }
 
+.add-bookmark {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    padding: 15px;
+}
+
+.add-bookmark > input {
+    border: 1px solid black;
+}
+
+.add-bookmark > textarea {
+    border: 1px solid black;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.rating {
+    width: 90px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+}
+
+.rating > label {
+    float: right;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+}
+
+.hidden {
+    display: none;
+}
+
 @media screen and (min-width: 1100px) {
     .bookmark-container {
         margin: auto 100px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .add-button {
+        width: 20%;
+    }
+
+    .filter {
+        width: 20%;
+    }
+
+    .site-button {
+        width: 20%;
+    }
+
+    .delete-button {
+        width: 20%;
     }
 }
