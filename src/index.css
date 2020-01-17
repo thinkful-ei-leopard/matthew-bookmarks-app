@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Carter+One&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Carter One', cursive;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.head-container {
+    text-align: center;
+}
+
+.user-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+.button {
+    width: 20%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.filter {
+    width: 20%;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.delete-button {
+    color: white;
+    background-color: red;
+}
+
+.filter:hover {
+    cursor: pointer;
+}
+
+.bookmark-container {
+    display: flexbox;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: auto 15px;
+}
+
+.bookmark-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.bookmark-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+@media screen and (min-width: 1100px) {
+    .bookmark-container {
+        margin: auto 100px;
+    }
+}
