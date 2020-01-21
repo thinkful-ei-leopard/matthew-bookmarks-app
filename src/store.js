@@ -1,13 +1,4 @@
-const bookmarks = [
-  {
-    id: 'x56w',
-    title: 'Title 1',
-    rating: 3,
-    url: 'http://www.title1.com',
-    description: 'lorem ipsum dolor sit',
-    expanded: false
-  }
-];
+const bookmarks = [];
 let adding = false;
 let filter = 0;
 let error = null;

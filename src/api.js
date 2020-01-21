@@ -50,7 +50,7 @@ function createBookmark(title, url, desc, rating) {
   let newBookmark = JSON.stringify({ title, url, desc, rating });
   return apiFetch(`${BASE_URL}/bookmarks`, {
     method: 'POST',
-    header: {
+    headers: {
       'Content-Type': 'application/json'
     },
     body: newBookmark

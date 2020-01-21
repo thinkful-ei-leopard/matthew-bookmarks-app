@@ -9,14 +9,8 @@ import store from './store';
 function generateBookmarkElement(bookmark) {
   let bookmarkHead = `
       <div class="bookmark-head">
-          <h3 class="title">Title5</h3>
-          <div>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-          </div>
+          <h2 class="title">${bookmark.title}</h2>
+          ${generateStars(bookmark)}
       </div>`;
 
   let bookmarkBody = '<div class="bookmark-body hidden">';
@@ -27,7 +21,7 @@ function generateBookmarkElement(bookmark) {
 
   bookmarkBody += `
         <button class="site-button button">Visit Site</button>
-        <p class="description">${bookmark.description}</p>
+        <p class="description">${bookmark.desc}</p>
         <button class="delete-button button">Delete</button>
       </div>`;
 
@@ -35,6 +29,23 @@ function generateBookmarkElement(bookmark) {
             ${bookmarkHead}
             ${bookmarkBody}
           </div>`;
+}
+
+/**
+ * Generates the star rating HTML string for a bookmark
+ * @param {Object} bookmark
+ */
+function generateStars(bookmark) {
+  let defaultClass = 'fa fa-star';
+  let checkedClass = 'fa fa-star checked';
+  return `
+    <div>
+      <span class="${bookmark.rating >= 1 ? checkedClass : defaultClass}"></span>
+      <span class="${bookmark.rating >= 2 ? checkedClass : defaultClass}"></span>
+      <span class="${bookmark.rating >= 3 ? checkedClass : defaultClass}"></span>
+      <span class="${bookmark.rating >= 4 ? checkedClass : defaultClass}"></span>
+      <span class="${bookmark.rating >= 5 ? checkedClass : defaultClass}"></span>
+    </div>`;
 }
 
 /**
@@ -53,28 +64,28 @@ function generateAddingString() {
   return `
     <form class="add-bookmark">
       <label for="title">Title:</label>
-      <input type="text" name="title" size="35" placeholder="Google" required>
+      <input type="text" name="title" size="35" placeholder="Google">
 
-      <label for="link">Link:</label>
-      <input type="text" name="link" size="35" placeholder="https://www.google.com" required>
+      <label for="link">URL:</label>
+      <input type="text" name="link" size="35" placeholder="https://www.google.com">
 
       <label for="rating">Rating:</label>
       <div class="rating" name="rating">
-          <input id="star5" name="star" type="radio" value="5" class="radio-btn hidden" required />
-          <label class="fa-star" for="star5">☆</label class="fa-star">
-          <input id="star4" name="star" type="radio" value="4" class="radio-btn hidden" required/>
-          <label class="fa-star" for="star4">☆</label class="fa-star">
-          <input id="star3" name="star" type="radio" value="3" class="radio-btn hidden" required/>
-          <label class="fa-star" for="star3">☆</label class="fa-star">
-          <input id="star2" name="star" type="radio" value="2" class="radio-btn hidden" required/>
-          <label class="fa-star" for="star2">☆</label class="fa-star">
-          <input id="star1" name="star" type="radio" value="1" class="radio-btn hidden" required/>
-          <label class="fa-star" for="star1">☆</label>
+          <input id="star5" name="star" type="radio" value="5" class="radio-btn hidden" />
+          <label for="star5">&#9733</label>
+          <input id="star4" name="star" type="radio" value="4" class="radio-btn hidden"/>
+          <label for="star4">&#9733</label>
+          <input id="star3" name="star" type="radio" value="3" class="radio-btn hidden"/>
+          <label for="star3">&#9733</label>
+          <input id="star2" name="star" type="radio" value="2" class="radio-btn hidden"/>
+          <label for="star2">&#9733</label>
+          <input id="star1" name="star" type="radio" value="1" class="radio-btn hidden"/>
+          <label for="star1">&#9733</label>
           <div class="clear"></div>
       </div>
 
       <label for="description">Description:</label>
-      <textarea form="add-bookmark" rows="4" cols="30" name="description" placeholder="A wonderful site used to search to the ends of the internet for anything you need." required></textarea>
+      <textarea form="add-bookmark" rows="4" cols="30" name="description" type="text" placeholder="A wonderful site used to search to the ends of the internet for anything you need."></textarea>
   
       <div class="user-controls">
           <button class="cancel-button button">Cancel</button>
@@ -91,11 +102,31 @@ function getIdFromElement(bookmark) {
   return $(bookmark).closest('.bookmark').data('bookmark-id');
 }
 
+function generateError(message) {
+  return `
+    <section class="error-content">
+      <button id="close-button">X</button>
+      <p>${message}</p>
+    </section>
+  `;
+}
+
+function renderError() {
+  if(store.error) {
+    $('.error-box').removeClass('hidden');
+    $('.error-box').html(generateError(store.error.message));
+  } else {
+    $('.error-box').addClass('hidden');
+  }
+}
+
 /**
  * Renders the Application to the browser window
  */
 function render() {
   let html = '';
+
+  renderError();
 
   // Check if the user is adding a Bookmark
   if(store.adding) {
@@ -104,7 +135,7 @@ function render() {
   } else {
     // Filter the bookmarks if the rating filter is set. Rating must be >= the filter
     let bookmarks = [...store.bookmarks];
-    if(store.bookmarks > 0) {
+    if(store.filter > 0) {
       bookmarks = bookmarks.filter(bookmark => bookmark.rating >= store.filter);
     }
     // Generate the HTML
@@ -124,6 +155,7 @@ function render() {
 function handleAddBookmarkClicked() {
   $('.add-button').click(event => {
     store.adding = true;
+    $('.user-controls').addClass('hidden');
     render();
   });
 }
@@ -131,8 +163,9 @@ function handleAddBookmarkClicked() {
 /**
  * Handles when the 'Filter' has been set
  */
-function handleFilterSubmit() {
-  $('.filter').submit(event => {
+function handleFilterChange() {
+  $('.filter').on('change', event => {
+    event.preventDefault();
     let filter = $('.filter').val();
     store.filter = filter;
     render();
@@ -154,16 +187,20 @@ function handleBookmarkClick() {
  * Handles when the 'Visit Site' Button is clicked
  */
 function handleVisitSiteClicked() {
-
+  $('.bookmark-container').on('click', '.site-button', event => {
+    event.preventDefault();
+    let bookmark = store.findById(getIdFromElement(event.currentTarget));
+    window.open(`${bookmark.url}`, '_blank');
+  });
 }
 
 /**
  * Handles when the 'Delete' Button is clicked
  */
 function handleDeleteBookmarkClicked() {
-  const id = getIdFromElement(event.currentTarget);
-
   $('.bookmark-container').on('click', '.delete-button', event => {
+    event.preventDefault();
+    const id = getIdFromElement(event.currentTarget);
     api.deleteBookmark(id)
       .then(() => {
         store.deleteBookmark(id);
@@ -171,7 +208,7 @@ function handleDeleteBookmarkClicked() {
       })
       .catch(error => {
         store.setError(error);
-      // renderError();
+        renderError();
       });
   });
 }
@@ -184,6 +221,7 @@ function handleCancelButtonClicked() {
   $('.bookmark-container').on('click', '.cancel-button', event => {
     event.preventDefault();
     store.adding = false;
+    $('.user-controls').removeClass('hidden');
     render();
   });
 }
@@ -192,7 +230,31 @@ function handleCancelButtonClicked() {
  * Handles when the 'Add Bookmark' form is submitted
  */
 function handleAddBookmarkSubmit() {
+  $('.bookmark-container').on('submit', '.add-bookmark', event => {
+    event.preventDefault();
+    let title = $('input[name="title"]').val();
+    let link = $('input[name="link"]').val();
+    let rating = $('input[name="star"]:checked').val();
+    let description = $('textarea[name="description"]').val();
+    api.createBookmark(title, link, description, rating)
+      .then((newBookmark) => {
+        store.addBookmark(newBookmark);
+        store.adding = false;
+        $('.user-controls').removeClass('hidden');
+        render();
+      })
+      .catch(error => {
+        store.setError(error);
+        renderError();
+      });
+  });
+}
 
+function handleErrorClose() {
+  $('.error-box').on('click', '#close-button', event => {
+    store.setError(null);
+    renderError();
+  });
 }
 
 /**
@@ -200,12 +262,13 @@ function handleAddBookmarkSubmit() {
  */
 function bindEventListeners() {
   handleAddBookmarkClicked();
-  handleFilterSubmit();
+  handleFilterChange();
   handleBookmarkClick();
   handleVisitSiteClicked();
   handleDeleteBookmarkClicked();
   handleCancelButtonClicked();
   handleAddBookmarkSubmit();
+  handleErrorClose();
 }
 
 export default {
